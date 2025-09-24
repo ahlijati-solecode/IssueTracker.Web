@@ -1,0 +1,47 @@
+﻿@page
+@model IssueTracker.Web.Pages.Categories.CreateModel
+@{
+    ViewData["Title"] = "Create Category";
+}
+<h2>Create Category</h2>
+
+<!-- Validation Summary (top of form) -->
+<div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+<form method="post" id="categoryForm">
+    <div class="mb-3">
+        <label asp-for="Category.CategoryName" class="form-label"></label>
+        <input asp-for="Category.CategoryName" class="form-control" />
+        <span asp-validation-for="Category.CategoryName" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-success">Save</button>
+    <a asp-page="Index" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        // Custom validator: only allow letters, numbers, spaces
+        $.validator.addMethod("nospecialchars", function (value, element) {
+            return this.optional(element) || /^[a-zA-Z0-9 ]*$/.test(value);
+        }, "Only letters, numbers, and spaces are allowed.");
+
+        // Attach validation rules to CategoryName
+        $("#categoryForm").validate({
+            rules: {
+                "Category.CategoryName": {
+                    required: true,
+                    minlength: 3,
+                    nospecialchars: true
+                }
+            },
+            messages: {
+                "Category.CategoryName": {
+                    required: "Category name is required.",
+                    minlength: "Category name must be at least 3 characters."
+                }
+            }
+        });
+    </script>
+}
+

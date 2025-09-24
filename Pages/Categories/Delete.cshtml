@@ -1,0 +1,17 @@
+﻿@page "{id:int}"
+@model IssueTracker.Web.Pages.Categories.DeleteModel
+@{
+}
+
+<h2>Delete Category</h2>
+
+<div class="alert alert-warning">
+    Are you sure you want to delete <strong>@Model.Category.CategoryName</strong>?
+</div>
+
+<form method="post">
+    <input asp-for="Category.Id" type="hidden" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-page="Index" class="btn btn-secondary">Cancel</a>
+</form>
+
