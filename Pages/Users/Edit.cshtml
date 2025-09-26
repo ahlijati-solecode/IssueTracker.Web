@@ -2,3 +2,45 @@
 @model IssueTracker.Web.Pages.Users.EditModel
 @{
 }
+
+<h2>Edit User</h2>
+
+<form method="post">
+    <input asp-for="User.Id" type="hidden" />
+
+    <div class="mb-3">
+        <label asp-for="User.UserName" class="form-label"></label>
+        <input asp-for="User.UserName" class="form-control" />
+        <span asp-validation-for="User.UserName" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="User.Email" class="form-label"></label>
+        <input asp-for="User.Email" class="form-control" />
+        <span asp-validation-for="User.Email" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="User.Password" class="form-label"></label>
+        <input asp-for="User.Password" class="form-control" />
+        <span asp-validation-for="User.Password" class="text-danger"></span>
+    </div>
+
+
+    <div class="mb-3">
+        <label asp-for="User.Role" class="form-label"></label>
+
+        <select asp-for="User.Role" class="form-control" asp-items="Model.RoleList">
+            <option value="">-- Select Role --</option>
+        </select>
+        <span asp-validation-for="User.Role" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">Update</button>
+    <a asp-page="Index" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
