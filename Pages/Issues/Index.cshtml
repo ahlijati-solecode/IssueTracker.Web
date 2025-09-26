@@ -20,7 +20,7 @@
         </tr>
     </thead>
     <tbody>
-        @* @foreach(var c in Model.Issues)
+         @foreach(var c in Model.Issues)
         {
             <tr id="row-@c.id">
                 <td>@c.id</td>
@@ -28,7 +28,7 @@
                 <td>@c.Description</td>
                 <td>@c.Status</td>
                 <td>@c.Priority</td>
-                <td>@c.ProjectId</td>
+                <td>@c.Project.Name</td>
                 <td>@c.AssignedToUserId</td>
                 <td>@c.CreatedDate</td>
                 <td>
@@ -36,7 +36,7 @@
                     <a onclick="deleteIssue(@c.id)" class="btn btn-sm btn-danger">Delete</a>
                 </td>
             </tr>
-        } *@
+        } 
     </tbody>
 </table>
 
