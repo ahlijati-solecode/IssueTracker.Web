@@ -1,4 +1,28 @@
 ﻿@page
 @model IssueTracker.Web.Pages.Comments.IndexModel
 @{
+    ViewData["Title"] = "Comments";
 }
+
+<h2>Comments</h2>
+<p><a asp-page="Create" class="btn btn-primary">+ New Comments</a></p>
+
+<table class="table table-bordered">
+    <thead>
+        <tr><th>ID</th><th>Issue ID</th><th>User ID</th><th>Content</th><th>Created Date</th><th colspan="2">Action</th></tr>
+    </thead>
+    <tbody>
+        @foreach (var c in Model.Comments)
+        {
+            <tr id="row-@c.Id">
+                <td>@c.Id</td>
+                <td>@c.IssueId</td>
+                <td>@c.UserId</td>
+                <td>@c.Content</td>
+                <td>@c.CreatedDate</td>
+                <td><a asp-page="Edit" asp-route-id="@c.Id" class="btn btn-smbutton-warning">Edit</a></td>
+                <td><a asp-page="Delete" asp-route-id="@c.Id" class="btn btn-smbutton-danger">Delete</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

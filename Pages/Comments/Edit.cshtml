@@ -2,3 +2,23 @@
 @model IssueTracker.Web.Pages.Comments.EditModel
 @{
 }
+
+<h2>Edit Comments</h2>
+
+<form method="post">
+    <input asp-for="Comment.Id" type="hidden" />
+    <input asp-for="Comment.UserId" type="hidden" />
+    <input asp-for="Comment.CreatedDate" type="hidden" />
+    <input asp-for="Comment.IssueId" type="hidden" />
+    <div class="mb-3">
+        <label asp-for="Comment.Content" class="form-label"></label>
+        <input asp-for="Comment.Content" class="form-control" />
+        <span asp-validation-for="Comment.Content" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-success">Update</button>
+    <a asp-page="Index" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

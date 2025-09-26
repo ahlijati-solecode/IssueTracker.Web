@@ -2,3 +2,15 @@
 @model IssueTracker.Web.Pages.Comments.DeleteModel
 @{
 }
+
+<h2>Delete Comments</h2>
+<div class="alert alert-warning">
+    Yakin
+    <strong>@Model.Comment.Id</strong> mo dihapus bro??
+</div>
+
+<form method="post">
+    <input asp-for="Comment.Id" type="hidden" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-page="Index" class="btn btn-secondary">Cancel</a>
+</form>

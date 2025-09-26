@@ -105,7 +105,45 @@
                                 <p>Categories</p>
                             </a>
                         </li>
+                            <li class="nav-item">
+                                <a href="/Comments" class="nav-link">
+                                    <i class="nav-icon fas fa-list"></i>
+                                    <p>Comments</p>
+                                </a>
+                            </li>
         }
+
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("Manager"))
+                        {
+                            <li class="nav-item">
+                                <a href="/Categories" class="nav-link">
+                                    <i class="nav-icon fas fa-list"></i>
+                                    <p>Categories</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/Comments" class="nav-link">
+                                    <i class="nav-icon fas fa-list"></i>
+                                    <p>Comments</p>
+                                </a>
+                            </li>
+                        }
+
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("Developer"))
+                        {
+                            <li class="nav-item">
+                                <a href="/Categories" class="nav-link">
+                                    <i class="nav-icon fas fa-list"></i>
+                                    <p>Categories</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/Comments" class="nav-link">
+                                    <i class="nav-icon fas fa-list"></i>
+                                    <p>Comments</p>
+                                </a>
+                            </li>
+                        }
                     </ul>
                 </nav>
             </div>
