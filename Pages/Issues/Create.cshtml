@@ -2,3 +2,49 @@
 @model IssueTracker.Web.Pages.Issues.CreateModel
 @{
 }
+
+<h2>Create Issue</h2>
+<form method="post">
+    <div class="mb-3">
+        <label asp-for="Issue.Title" class="form-label"></label>
+        <input asp-for="Issue.Title" class="form-control" />
+        <span asp-validation-for="Issue.Title" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Issue.Description" class="form-label"></label>
+        <textarea asp-for="Issue.Description" class="form-control"></textarea>
+        <span asp-validation-for="Issue.Description" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Issue.Status" class="form-label"></label>
+        <select asp-for="Issue.Status" class="form-control" asp-items="Model.StatusList">
+            <option value="">-- Select Status --</option>
+        </select>
+        <span asp-validation-for="Issue.Status" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Issue.Priority" class="form-label"></label>
+        <select asp-for="Issue.Priority" class="form-control" asp-items="Model.PriorityList">
+            <option value="">-- Select Priority --</option>
+        </select>
+        <span asp-validation-for="Issue.Priority" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Issue.ProjectId" class="form-label"></label>
+        <select asp-for="Issue.ProjectId" class="form-control" asp-items="Model.ProjectList">
+            <option value="">-- Select Project --</option>
+        </select>
+        <span asp-validation-for="Issue.ProjectId" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Issue.AssignedToUserId" class="form-label"></label>
+        <input asp-for="Issue.AssignedToUserId" class="form-control" />
+        <span asp-validation-for="Issue.AssignedToUserId" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-success">Save</button>
+    <a asp-page="Index" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
