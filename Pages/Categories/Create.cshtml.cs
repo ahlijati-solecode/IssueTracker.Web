@@ -17,19 +17,20 @@ namespace IssueTracker.Web.Pages.Categories
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid) return Page();
+            if (!ModelState.IsValid) 
+                return Page();
+            
 
             var client = _httpFactory.CreateClient("MyApi");
             var resp = await client.PostAsJsonAsync("api/categories", Category);
             if (resp.IsSuccessStatusCode)
             {
-                TempData["SuccessMessage"] = "Category created successfully!";
+                TempData["SuccessMessage"] = await resp.Content.ReadAsStringAsync();
                 return RedirectToPage("Index");
             }
 
-
             // handle errors (optional: read error content)
-            ModelState.AddModelError(string.Empty, "Failed to create category.");
+            ModelState.AddModelError(string.Empty, "failed");
             return Page();
         }
     }

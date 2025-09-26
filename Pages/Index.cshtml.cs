@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace WebApplication1.Pages
+namespace IssueTracker.Web.Pages
 {
     public class IndexModel : PageModel
     {
@@ -12,8 +12,15 @@ namespace WebApplication1.Pages
             _logger = logger;
         }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToPage("/Account/Login");
+            }
+
+            // Kalau sudah login ? redirect ke dashboard
+            return RedirectToPage("/Dashboard/Index");
 
         }
     }

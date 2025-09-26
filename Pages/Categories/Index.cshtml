@@ -4,22 +4,15 @@
     ViewData["Title"] = "Categories";
 }
 
-@if (TempData["SuccessMessage"] != null)
-{
-    <script>
-        $(document).ready(function () {
-            showSuccessToast("@TempData["SuccessMessage"]");
-        });
-    </script>
-}
 <h2>Categories</h2>
 <p><a asp-page="Create" class="btn btn-primary">+ New Category</a></p>
 
-<table class="table table-bordered">
+<table class="table table-bordered" id="categoriesTable">
     <thead>
         <tr><th>ID</th><th>Name</th><th>Actions</th></tr>
     </thead>
     <tbody>
+        
         @foreach (var c in Model.Categories)
         {
             <tr id="row-@c.Id">
@@ -28,28 +21,34 @@
                 <td>
                     <a asp-page="Edit" asp-route-id="@c.Id" class="btn btn-sm btn-warning">Edit</a>
                     <a asp-page="Delete" asp-route-id="@c.Id" class="btn btn-sm btn-danger">Delete</a>
-                    <button class="btn btn-sm btn-outline-danger" onclick="deleteViaJs(@c.Id)">Delete (AJAX)</button>
+                    <button class="btn btn-sm btn-outline-danger" onclick="deleteCategory(@c.Id)">Delete (AJAX)</button>
+
                 </td>
             </tr>
         }
+        
     </tbody>
 </table>
 @section Scripts {
     <script>
         $(document).ready(function () {
-            loadCategories(); // initial table load
-        });
-    </script>
+            // Always load categories
+           // loadCategories();
 
-    @if (TempData["SuccessMessage"] != null)
-    {
-        <script>
-            $(document).ready(function () {
-                showSuccessToast("@TempData["SuccessMessage"]");
-                loadCategories(); // refresh after toast
-            });
-        </script>
-    }
+            // Show toast if success message exists
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <text>
+                    showSuccessToast("@TempData["SuccessMessage"]");
+            </text>
+        }
+
+        @{
+            // clear TempData setelah dipakai
+            TempData.Remove("SuccessMessage");
+        }
+       });
+    </script>
 }
 
 
