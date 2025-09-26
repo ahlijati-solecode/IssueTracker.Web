@@ -11,6 +11,13 @@
         <label asp-for="Comments.Content" class="form-label"></label>
         <input asp-for="Comments.Content" class="form-control" />
         <span asp-validation-for="Comments.Content" class="text-danger"></span>
+
+        <label asp-for="Comments.IssueId" class="form-label"></label>
+        <select asp-for="Comments.IssueId" class="form-control" asp-items="Model.IssueList">
+            <option value="">Select Issue</option>
+        </select>
+        <span asp-validation-for="Comments.Content" class="text-danger"></span>
+
         <button type="submit" class="btn btn-success">Save</button>
         <a asp-page="Index" class="btn btn-secondary">Cancel</a>
     </div>

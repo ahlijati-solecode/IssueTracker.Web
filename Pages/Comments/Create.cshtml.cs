@@ -1,8 +1,9 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using IssueTracker.Web.Models;
-using System.Net.Http.Json;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Net.Http.Json;
 
 namespace IssueTracker.Web.Pages.Comments
 {
@@ -14,6 +15,17 @@ namespace IssueTracker.Web.Pages.Comments
 
         [BindProperty]
         public Comment Comments { get; set; } = new();
+
+        public List<SelectListItem> IssueList { get; set; } = new List<SelectListItem>();
+
+        public async Task OnGet()
+        {
+            var client = _httpFactory.CreateClient("MyApi");
+            var issues = await client.GetFromJsonAsync<List<Issue>>("api/issues") ?? new List<Issue>();
+            IssueList = issues
+                .Select(p => new SelectListItem(p.Title, p.id.ToString()))
+                .ToList();
+        }
 
         public async Task<IActionResult> OnPostAsync()
         {
