@@ -7,15 +7,18 @@ namespace IssueTracker.Web.Pages.Issues
 {
     public class CreateModel : PageModel
     {
-        private readonly IHttpClientFactory _httpFactory;
+        public readonly IHttpClientFactory _httpFactory;
 
         public CreateModel(IHttpClientFactory httpFactory) => _httpFactory = httpFactory;
         public List<SelectListItem> StatusList { get; set; } = new List<SelectListItem>();
         public List<SelectListItem> PriorityList { get; set; } = new List<SelectListItem>();
         public List<SelectListItem> ProjectList { get; set; } = new List<SelectListItem>();
-        public async Task OnGet()
-        {
 
+        [BindProperty]
+        public Issue Issue { get; set; } = new();
+
+        public async Task OnGetAsync()
+        {
             StatusList = new List<SelectListItem>
             {
                 new SelectListItem("Open", "Open"),
@@ -35,8 +38,29 @@ namespace IssueTracker.Web.Pages.Issues
             ProjectList = projects
                 .Select(p => new SelectListItem(p.Name, p.Id.ToString()))
                 .ToList();
+        }
 
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
 
+            Issue.CreatedDate = DateTime.Now;
+
+            var client = _httpFactory.CreateClient("MyApi");
+            var resp = await client.PostAsJsonAsync("api/issues", Issue);
+
+            if (resp.IsSuccessStatusCode)
+            {
+                TempData["SuccessMessage"] = "Issue created successfully!";
+                return RedirectToPage("Index");
+            }
+
+            ModelState.AddModelError(string.Empty, "Failed to create issue");
+
+            return Page();
         }
     }
 }

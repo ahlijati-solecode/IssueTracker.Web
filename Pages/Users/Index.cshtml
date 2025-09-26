@@ -1,4 +1,45 @@
 ﻿@page
 @model IssueTracker.Web.Pages.Users.IndexModel
 @{
+    ViewData["Title"] = "Users";
 }
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <script>
+        $(document).ready(function () {
+            showSuccessToast("@TempData["SuccessMessage"]");
+        });
+    </script>
+}
+<h2>Users</h2>
+<p><a asp-page="Create" class="btn btn-primary">+ New User</a></p>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+
+            <th>Username</th>
+            <th>Email</th>
+            <th>Roles</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Users)
+        {
+            <tr id="row-@user.Id">
+
+                <td>@user.UserName</td>
+                <td>@user.Email</td>
+                <td>@user.Role</td>
+
+                <td>
+                    <a asp-page="Edit" asp-route-id="@user.Id" class="btn btn-sm btn-warning">Edit</a>
+                    <a asp-page="Delete" asp-route-id="@user.Id" class="btn btn-sm btn-danger">Delete</a>
+                    <button class="btn btn-sm btn-outline-danger" onclick="deleteViaJs(@user.Id)">Delete (AJAX)</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

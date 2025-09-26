@@ -2,3 +2,13 @@
 @model IssueTracker.Web.Pages.Issues.DeleteModel
 @{
 }
+
+<h2>Delete Issue</h2>
+<div class="alert alert-warning">
+    Are you sure want to delete issue <strong>@Model.Issue.Title</strong> ?
+</div>
+<form method="post">
+    <input asp-for="Issue.id" type="hidden" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-page="Index" class="btn btn-secondary">Cancel</a>
+</form>

@@ -1,5 +1,4 @@
-﻿using IssueTracker.Web.Models;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace IssueTracker.Web.Models

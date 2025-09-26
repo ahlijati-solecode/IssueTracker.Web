@@ -45,6 +45,54 @@ function deleteCategory(id) {
     });
 }
 
+// Load issues into the table
+function loadIssues() {
+    $.get(API_BASE_URL + "/api/issues", function (data) {
+        let tbody = $("#issuesTable tbody");
+        tbody.empty();
+
+        data.forEach(issue => {
+            let row = `
+                <tr>
+                    <td>${issue.id}</td>
+                    <td>${issue.title}</td>
+                    <td>${issue.description}</td>
+                    <td>${issue.status}</td>
+                    <td>${issue.priority}</td>
+                    <td>${issue.projectId}</td>
+                    <td>${issue.assignedToUserId}</td>
+                    <td>${issue.createdDate}</td>
+                    <td>
+                        <a href="/Issues/Edit?id=${issue.id}" class="btn btn-sm btn-warning">Edit</a>
+                        <button class="btn btn-danger btn-sm" onclick="deleteIssue(${issue.id})">Delete</button>
+                    </td>
+                </tr>
+            `;
+
+            tbody.append(row);
+        });
+    });
+}
+
+// Delete issue with confirmation
+function deleteIssue(id) {
+    if (!confirm("Are you sure want to delete this issue?")) {
+        return;
+    }
+
+    $.ajax({
+        url: API_BASE_URL + `/api/issues/${id}`,
+        type: `DELETE`,
+        success: function (data) {
+            showSuccessToast("Issue deleted successfully!");
+            loadIssues(); // refresh the table
+        },
+        error: function (error) {
+            showErrorToast("Failed to delete issue");
+        }
+    });
+}
+
 // Success toast
 function showSuccessToast(message) {
     $(document).Toasts('create', {
