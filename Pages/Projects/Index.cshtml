@@ -1,4 +1,30 @@
 ﻿@page
 @model IssueTracker.Web.Pages.Projects.IndexModel
 @{
+	ViewData["title"] = "Projects";
 }
+
+<h2> Projects </h2>
+<p> <a asp-page="Create" class="btn btn-primary">+ New Project </a></p>
+<table class=" table table-bordered">
+	<thead>
+		<tr> <th>ID</th><th>Name</th><th>Description</th><th>Created Date</th><th>Created User</th></tr>
+	</thead>
+	<tbody>
+		@foreach (var c in Model.Projects)
+		{
+			<tr id="row-@c.Id">
+				<td>@c.Id</td>
+				<td>@c.Name</td>
+				<td>@c.Description</td>
+				<td>@c.CreatedDate</td>
+				<td>@c.CreatedByUserId</td>
+				<td>
+					<a asp-page="Edit" asp-route-id="@c.Id" class="btn btn-sm btn-warning">Edit</a>
+					<a asp-page="Delete" asp-route-id="@c.Id" class="btn btn-sm btn-danger">Delete</a>
+					@* <button class="btn btn-sm btn-outline-danger" onclick="deleteViaJs(@c.Id)">Delete (AJAX)</button> *@
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
